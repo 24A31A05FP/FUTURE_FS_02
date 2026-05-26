@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FUTURE_FS_02 – Client Lead Management System (Mini CRM) by Matte Veera Venkata Manikanta">
+  <title>FUTURE_FS_02 – Client Lead Management System</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Glow Orbs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- App Layout -->
+  <div class="app-container">
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+      <div class="brand">
+        <div class="brand-logo-icon">
+          <i data-lucide="activity"></i>
+        </div>
+        <span class="brand-text">FUTURE_FS_02</span>
+      </div>
+      <button id="mobile-sidebar-toggle" class="btn-icon-glass" aria-label="Toggle Sidebar">
+        <i data-lucide="menu"></i>
+      </button>
+    </header>
+
+    <!-- Sidebar -->
+    <aside id="app-sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-logo-icon">
+            <i data-lucide="layers"></i>
+          </div>
+          <div class="brand-details">
+            <span class="brand-text">FUTURE_FS_02</span>
+            <span class="brand-subtext">Client CRM</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <button class="nav-item active" data-view="dashboard">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-view="leads">
+          <i data-lucide="users"></i>
+          <span>Leads</span>
+        </button>
+        <button class="nav-item" data-view="about">
+          <i data-lucide="award"></i>
+          <span>About Project</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="developer-card">
+          <div class="dev-avatar">MV</div>
+          <div class="dev-info">
+            <p class="dev-name">M. V. V. Manikanta</p>
+            <p class="dev-title">Full Stack Intern</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Desktop Top Bar -->
+      <div class="top-bar">
+        <div class="welcome-text">
+          <h1 id="page-title">Dashboard Overview</h1>
+          <p class="text-muted">Welcome back, Matte Veera Venkata Manikanta</p>
+        </div>
+        <div class="top-bar-actions">
+          <button id="add-lead-btn-top" class="btn btn-gradient">
+            <i data-lucide="plus"></i>
+            <span>Add New Lead</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== DASHBOARD VIEW ===== -->
+      <section id="view-dashboard" class="content-view active">
+
+        <!-- Stats Cards -->
+        <div class="stats-deck">
+          <div class="stat-card">
+            <div class="stat-content">
+              <span class="stat-label">Total Leads</span>
+              <h2 id="stat-total" class="stat-value">0</h2>
+              <span class="stat-trend trend-neutral">
+                <i data-lucide="users"></i> CRM Registry
+              </span>
+            </div>
+            <div class="stat-icon-wrapper purple-glow">
+              <i data-lucide="folder-open"></i>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-content">
+              <span class="stat-label">Contacted</span>
+              <h2 id="stat-contacted" class="stat-value">0</h2>
+              <span class="stat-trend trend-up">
+                <i data-lucide="phone-call"></i> Active Outreach
+              </span>
+            </div>
+            <div class="stat-icon-wrapper blue-glow">
+              <i data-lucide="message-square"></i>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-content">
+              <span class="stat-label">Converted</span>
+              <h2 id="stat-converted" class="stat-value">0</h2>
+              <span id="stat-conversion-pct" class="stat-trend trend-success">
+                <i data-lucide="sparkles"></i> 0% Rate
+              </span>
+            </div>
+            <div class="stat-icon-wrapper pink-glow">
+              <i data-lucide="sparkles"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard Split -->
+        <div class="dashboard-split">
+
+          <!-- Funnel Chart -->
+          <div class="split-card">
+            <div class="card-header">
+              <h3>Lead Pipeline Funnel</h3>
+              <i data-lucide="trending-up" class="text-pink"></i>
+            </div>
+            <div class="funnel-container">
+              <div class="funnel-stage" id="funnel-new">
+                <div class="funnel-bar funnel-bar-new" style="width:100%"></div>
+                <div class="funnel-label">
+                  <span>New Leads</span>
+                  <strong id="funnel-new-val">0</strong>
+                </div>
+              </div>
+              <div class="funnel-stage" id="funnel-contacted">
+                <div class="funnel-bar funnel-bar-contacted" style="width:0%"></div>
+                <div class="funnel-label">
+                  <span>Contacted</span>
+                  <strong id="funnel-contacted-val">0</strong>
+                </div>
+              </div>
+              <div class="funnel-stage" id="funnel-converted">
+                <div class="funnel-bar funnel-bar-converted" style="width:0%"></div>
+                <div class="funnel-label">
+                  <span>Converted</span>
+                  <strong id="funnel-converted-val">0</strong>
+                </div>
+              </div>
+            </div>
+            <p class="funnel-note text-muted">Live pipeline from LocalStorage — updates instantly</p>
+          </div>
+
+          <!-- Source Distribution -->
+          <div class="split-card">
+            <div class="card-header">
+              <h3>Top Lead Sources</h3>
+              <i data-lucide="pie-chart" class="text-purple"></i>
+            </div>
+            <div id="source-list" class="source-distribution-list">
+              <p class="text-muted text-sm">No leads yet. Add your first lead!</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Quick action on empty dashboard -->
+        <div id="dashboard-empty-cta" class="dashboard-empty-cta" style="display:none;">
+          <div class="empty-cta-inner">
+            <i data-lucide="zap" class="empty-cta-icon"></i>
+            <h3>No leads yet — get started!</h3>
+            <p class="text-muted">Add your first client lead and watch the dashboard come alive with live stats and pipeline analytics.</p>
+            <button id="dashboard-add-btn" class="btn btn-gradient">
+              <i data-lucide="user-plus"></i> Add First Lead
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===== LEADS VIEW ===== -->
+      <section id="view-leads" class="content-view">
+
+        <!-- Controls Bar -->
+        <div class="controls-bar">
+          <div class="search-box-wrapper">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" id="lead-search" placeholder="Search by name, email, phone, source…" autocomplete="off">
+            <button id="clear-search-btn" class="btn-clear-input" style="display:none;">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="filters-wrapper">
+            <div class="select-wrapper">
+              <i data-lucide="filter" class="select-icon"></i>
+              <select id="status-filter">
+                <option value="All">All Statuses</option>
+                <option value="New">New</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Converted">Converted</option>
+              </select>
+            </div>
+            <button id="add-lead-btn-controls" class="btn btn-gradient">
+              <i data-lucide="user-plus"></i>
+              <span>Add Lead</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Leads Container -->
+        <div class="leads-container-box glass-panel">
+
+          <!-- Loading -->
+          <div id="leads-loading" class="leads-loading" style="display:none;">
+            <div class="spinner-glow"></div>
+            <p>Loading leads…</p>
+          </div>
+
+          <!-- Empty State -->
+          <div id="leads-empty-state" class="empty-state" style="display:none;">
+            <div class="empty-illustration">
+              <svg width="160" height="160" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="70" stroke="url(#eg)" stroke-width="2" stroke-dasharray="8 8" opacity="0.4"/>
+                <path d="M70 120C70 120 80 105 100 105C120 105 130 120 130 120" stroke="url(#eg2)" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="80" cy="85" r="6" fill="#EC4899"/>
+                <circle cx="120" cy="85" r="6" fill="#A855F7"/>
+                <defs>
+                  <linearGradient id="eg" x1="30" y1="30" x2="170" y2="170" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#A855F7"/><stop offset="1" stop-color="#EC4899"/>
+                  </linearGradient>
+                  <linearGradient id="eg2" x1="70" y1="112" x2="130" y2="112" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#EC4899"/><stop offset="1" stop-color="#A855F7"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <h3>No Leads Found</h3>
+            <p class="text-muted">Try a different search or filter, or add your first lead now.</p>
+            <button id="empty-state-add-btn" class="btn btn-gradient">
+              <i data-lucide="plus"></i> Add First Lead
+            </button>
+          </div>
+
+          <!-- Desktop Table -->
+          <div class="table-responsive-wrapper" id="table-wrapper">
+            <table class="leads-table" id="leads-table">
+              <thead>
+                <tr>
+                  <th>Lead Details</th>
+                  <th>Contact</th>
+                  <th>Source</th>
+                  <th>Status</th>
+                  <th>Notes</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="leads-tbody"></tbody>
+            </table>
+          </div>
+
+          <!-- Mobile Cards -->
+          <div class="mobile-leads-list" id="mobile-leads-list"></div>
+
+        </div>
+      </section>
+
+      <!-- ===== ABOUT VIEW ===== -->
+      <section id="view-about" class="content-view">
+        <div class="internship-container">
+
+          <div class="internship-glass-card header-banner-card">
+            <div class="banner-gradient"></div>
+            <div class="card-body">
+              <span class="badge badge-primary">Internship Submission</span>
+              <h2>Client Lead Management System (Mini CRM)</h2>
+              <p class="text-muted">A fully offline, browser-native CRM built with pure HTML5, CSS3, and Vanilla JavaScript. All data is stored in <strong>browser LocalStorage</strong> — no database or server required. Deployable on Netlify or GitHub Pages instantly.</p>
+            </div>
+          </div>
+
+          <div class="internship-details-grid">
+            <div class="internship-glass-card">
+              <div class="card-header">
+                <i data-lucide="user" class="card-icon text-pink"></i>
+                <h3>Developer Profile</h3>
+              </div>
+              <div class="card-body">
+                <table class="profile-info-table">
+                  <tr><th>Name:</th><td>Matte Veera Venkata Manikanta</td></tr>
+                  <tr><th>Role:</th><td>Full Stack Developer Intern</td></tr>
+                  <tr><th>Project:</th><td>FUTURE_FS_02</td></tr>
+                  <tr><th>Stack:</th><td>HTML5, CSS3, Vanilla JS, LocalStorage</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="internship-glass-card">
+              <div class="card-header">
+                <i data-lucide="cpu" class="card-icon text-purple"></i>
+                <h3>System Architecture</h3>
+              </div>
+              <div class="card-body">
+                <ul class="system-features-list">
+                  <li><i data-lucide="check" class="text-success"></i><span><strong>LocalStorage Engine:</strong> Full CRUD persistence in the browser — works offline.</span></li>
+                  <li><i data-lucide="check" class="text-success"></i><span><strong>Glassmorphism UI:</strong> Dark theme with backdrop blurs, gradient glows & animations.</span></li>
+                  <li><i data-lucide="check" class="text-success"></i><span><strong>Live Dashboard:</strong> Animated counters and pipeline funnel updated on every action.</span></li>
+                  <li><i data-lucide="check" class="text-success"></i><span><strong>Zero Dependencies:</strong> No Node.js, no MongoDB, no build step. Open index.html directly.</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>&copy; 2026 FUTURE_FS_02 CRM &nbsp;·&nbsp; Built by Matte Veera Venkata Manikanta &nbsp;·&nbsp; Powered by LocalStorage</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ADD / EDIT LEAD MODAL -->
+  <div id="lead-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box glass-panel">
+      <div class="modal-header">
+        <h3 id="modal-title">Add New Lead</h3>
+        <button id="modal-close-btn" class="btn-close-modal" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="lead-form" novalidate>
+        <input type="hidden" id="lead-id">
+        <div class="modal-body">
+          <div class="form-grid">
+
+            <div class="form-group col-span-2">
+              <label for="lead-name">Full Name <span class="required">*</span></label>
+              <div class="input-icon-wrapper">
+                <i data-lucide="user" class="input-icon"></i>
+                <input type="text" id="lead-name" placeholder="e.g. Arjun Sharma" autocomplete="off">
+              </div>
+              <span class="error-message" id="error-lead-name"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="lead-email">Email Address <span class="required">*</span></label>
+              <div class="input-icon-wrapper">
+                <i data-lucide="mail" class="input-icon"></i>
+                <input type="email" id="lead-email" placeholder="arjun@example.com">
+              </div>
+              <span class="error-message" id="error-lead-email"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="lead-phone">Phone Number <span class="required">*</span></label>
+              <div class="input-icon-wrapper">
+                <i data-lucide="phone" class="input-icon"></i>
+                <input type="tel" id="lead-phone" placeholder="+91 98765 43210">
+              </div>
+              <span class="error-message" id="error-lead-phone"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="lead-source">Lead Source <span class="required">*</span></label>
+              <div class="input-icon-wrapper">
+                <i data-lucide="globe" class="input-icon"></i>
+                <input type="text" id="lead-source" placeholder="LinkedIn, Referral, Google…">
+              </div>
+              <span class="error-message" id="error-lead-source"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="lead-status">Status</label>
+              <div class="select-wrapper no-icon-shift">
+                <i data-lucide="activity" class="select-icon"></i>
+                <select id="lead-status">
+                  <option value="New">New</option>
+                  <option value="Contacted">Contacted</option>
+                  <option value="Converted">Converted</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group col-span-2">
+              <label for="lead-notes">Follow-up Notes</label>
+              <div class="textarea-icon-wrapper">
+                <i data-lucide="file-text" class="textarea-icon"></i>
+                <textarea id="lead-notes" rows="3" placeholder="Add notes, preferred contact time, or any details…"></textarea>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="modal-cancel-btn" class="btn btn-outline">Cancel</button>
+          <button type="submit" id="modal-submit-btn" class="btn btn-gradient">
+            <span id="modal-submit-text">Save Lead</span>
+            <i data-lucide="check"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DELETE CONFIRMATION MODAL -->
+  <div id="delete-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box glass-panel delete-dialog-box">
+      <div class="delete-icon-glow">
+        <i data-lucide="trash-2"></i>
+      </div>
+      <h3>Delete Lead?</h3>
+      <p class="text-muted">This lead will be permanently removed from LocalStorage. This cannot be undone.</p>
+      <div class="lead-preview-delete" id="delete-lead-preview"></div>
+      <div class="delete-dialog-buttons">
+        <button id="delete-cancel-btn" class="btn btn-outline">Cancel</button>
+        <button id="delete-confirm-btn" class="btn btn-danger">
+          <i data-lucide="trash-2"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
